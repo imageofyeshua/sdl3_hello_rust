@@ -6,6 +6,9 @@ use sdl3::pixels::Color;
 use sdl3::rect::Rect;
 use std::time::Duration;
 
+mod view;
+use view::board_view;
+
 pub fn main() {
     let screen_width: u32 = 800;
     let screen_height: u32 = 600;
@@ -23,9 +26,10 @@ pub fn main() {
 
     let mut canvas = window.into_canvas();
 
-    let screen_area = Rect::new(0, 0, screen_width, screen_height);
-    let clear_color = Color::RGB(64, 192, 255);
-    canvas.set_draw_color(clear_color);
+    let board_view: board_view::Renderer = board_view::Renderer {
+        screen_area: Rect::new(0, 0, screen_width, screen_height),
+        clear_color: Color::RGB(64, 192, 255),
+    };
 
     while running {
         for event in event_queue.poll_iter() {
@@ -50,7 +54,7 @@ pub fn main() {
         }
         // Add rendering logic here if needed
 
-        canvas.fill_rect(screen_area);
+        board_view.render(&mut canvas);
         canvas.present();
     }
 }
