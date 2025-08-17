@@ -9,6 +9,9 @@ use std::time::Duration;
 mod view;
 use view::board_view;
 
+mod model;
+use model::game::BoardPiece;
+
 pub fn main() {
     let screen_width: u32 = 800;
     let screen_height: u32 = 600;
@@ -30,6 +33,8 @@ pub fn main() {
         screen_area: Rect::new(0, 0, screen_width, screen_height),
         clear_color: Color::RGB(64, 192, 255),
     };
+
+    let test_piece: BoardPiece = BoardPiece::Black;
 
     while running {
         for event in event_queue.poll_iter() {
