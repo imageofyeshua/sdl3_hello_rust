@@ -51,7 +51,7 @@ pub fn main() {
         }
         // Add rendering logic here if needed
 
-        board_view.render(&mut canvas);
+        board_view.render(&mut canvas, &game_state.board);
         canvas.present();
     }
 }
