@@ -20,27 +20,41 @@ impl Renderer {
         let cell_height: i32 = self.screen_area.h / 5;
 
         for i in 0..5 {
-            canvas
-                .draw_line(
-                    Point::new(cell_width / 2, cell_height / 2 + i * cell_height),
-                    Point::new(
-                        self.screen_area.w - cell_width / 2,
-                        cell_height / 2 + i * cell_height,
-                    ),
-                )
-                .ok()
-                .unwrap();
+            //horizontal
+            canvas.draw_line(
+                Point::new(cell_width / 2, cell_height / 2 + i * cell_height), 
+                Point::new(self.screen_area.w - cell_width / 2, cell_height / 2 + i * cell_height)
+            ).ok().unwrap_or_default();
 
-            canvas
-                .draw_line(
-                    Point::new(cell_width / 2 + i * cell_width, cell_height / 2),
-                    Point::new(
-                        cell_width / 2 + i * cell_width,
-                        self.screen_area.h - cell_height / 2,
-                    ),
-                )
-                .ok()
-                .unwrap();
+            //vertical
+            canvas.draw_line(
+                Point::new(cell_width / 2 + i * cell_width, cell_height / 2), 
+                Point::new(cell_width / 2 + i * cell_width, self.screen_area.h - cell_height / 2)
+            ).ok().unwrap_or_default();
+
+            //diagonal up-right a
+            canvas.draw_line(
+                Point::new(cell_width / 2, cell_height / 2 + i * cell_height), 
+                Point::new(cell_width / 2 + i * cell_width, cell_height / 2)
+            ).ok().unwrap_or_default();
+
+            //diagonal up-right b
+            canvas.draw_line(
+                Point::new(cell_width / 2 + i * cell_width, self.screen_area.h - cell_height / 2), 
+                Point::new(self.screen_area.w - cell_width / 2, cell_height / 2 + i * cell_height)
+            ).ok().unwrap_or_default();
+
+            //diagonal up-down a
+            canvas.draw_line(
+                Point::new(cell_width / 2, cell_height / 2 + i * cell_height), 
+                Point::new(self.screen_area.w - (cell_width / 2 + i * cell_width), self.screen_area.h - cell_height / 2)
+            ).ok().unwrap_or_default();
+
+            //diagonal up-down b
+            canvas.draw_line(
+                Point::new(cell_width / 2 + i * cell_width, cell_height / 2), 
+                Point::new(self.screen_area.w - cell_width / 2, self.screen_area.h - (cell_height / 2 + i * cell_height))
+            ).ok().unwrap_or_default();
         }
     }
 }

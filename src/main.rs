@@ -10,7 +10,8 @@ mod view;
 use view::board_view;
 
 mod model;
-use model::game::BoardPiece;
+use model::game::make_blank_board;
+use model::game::GameState;
 
 pub fn main() {
     let screen_width: u32 = 800;
@@ -34,26 +35,17 @@ pub fn main() {
         clear_color: Color::RGB(64, 192, 255),
     };
 
-    let test_piece: BoardPiece = BoardPiece::Black;
+    let mut game_state = GameState { board: make_blank_board() };
+
+    game_state.jumble_board();
+    game_state.print_board();
 
     while running {
         for event in event_queue.poll_iter() {
             match event {
                 Event::Quit { .. } => {
                     running = false;
-                }
-                Event::MouseMotion {
-                    timestamp,
-                    window_id,
-                    which,
-                    mousestate,
-                    x,
-                    y,
-                    xrel,
-                    yrel,
-                } => {
-                    println!("Mouse x: {}, y: {}", x, y);
-                }
+                },
                 _ => {}
             }
         }
